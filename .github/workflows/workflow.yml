@@ -1,0 +1,25 @@
+name: workflow.yml
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    name: Build weddingHub
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v4
+
+      - name: set up java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'termurin'
+          cache: maven
+      - name: Build with maven
+        run: mvn -B clean package
